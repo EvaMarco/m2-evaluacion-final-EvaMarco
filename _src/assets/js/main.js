@@ -7,25 +7,40 @@ const inputText = document.querySelector('.js__inputText');
 const btn = document.querySelector('.js__searchBtn');
 const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
-const inputShow = inputText.nodeValue;
-
-const ENDPOINT = `http://api.tvmaze.com/search/shows?q=${inputShow}`;
+const resultList = [];
 
 function search(){
-  console.log('busco');
+  const inputShow = inputText.value;
+  const ENDPOINT = `http://api.tvmaze.com/search/shows?q=${inputShow}`;
   fetch(ENDPOINT)
     .then(response => response.json())
-    .then(data => {console.log(data);
+    .then(data => {
       for(const item of data){
-        console.log(item.show);
-        console.log(item.show.id);
-        console.log(item.show.name);
+        const newShow = document.createElement('div');
+        newShow.classList.add(`show`);
+        newShow.setAttribute('data-id', `${item.show.id}`);
+        const showTitle = document.createElement('h3');
+        const titleText = document.createTextNode(item.show.name);
+        showTitle.appendChild(titleText);
+        newShow.appendChild(showTitle);
         if(item.show.image !== null){
-          console.log(item.show.image.medium);
+          const showImage = document.createElement('img');
+          showImage.src = item.show.image.medium;
+          showImage.alt = item.show.name;
+          showImage.classList.add('img');
+          newShow.appendChild(showImage);
         }
         else{
-          console.log('no tengo imagen');
+          const showImage = document.createElement('img');
+          showImage.src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
+          showImage.alt = item.show.name;
+          showImage.classList.add('img');
+          newShow.appendChild(showImage);
         }
+        resultList.push(newShow);
+      }
+      for(const item of resultList){
+        resultsContainer.appendChild(item);
       }
     });
 }

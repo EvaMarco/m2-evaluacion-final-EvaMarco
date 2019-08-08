@@ -9,12 +9,17 @@ Además debemos crear una funcionalidad para guardar nuestra lista de series fav
 
 Lo primero es crear nuestro repositorio, crear los documentos que vamos a necesitar el HTML con sus etiquetas Meta enlazamos el JavaScript y comprobamos que tenemos linkeado el CSS.
 
-Para estructurar este proyecto tenemos que tener en cuenta que con cada búsqueda que hagamos tenemos que hacer una petición a una api que nos han proporcionado. Para ello seguiremos estos pasos.
+Crear la estructura de HTML mínima necesaria para probar nuestra funcionalidad, en este caso, input de texto, botón de búsqueda y div para poder pintar los resultados.
+
+Lo siguiente que tenemos que tener en cuenta es que con cada búsqueda que hagamos tenemos que hacer una petición a una api que nos han proporcionado. Para ello seguiremos estos pasos.
+
 1. Ver como se estructura el JSON que recibimos de la api.
 2. Mirar que información necesitamos sacar del objeto recibido.
 3. Comprobar que obtenemos resultados iguales en las búsquedas.
 
 Una vez ya tenemos acceso a la info que necesitamos podemos empezar a escribir nuestro código.
+
+Creamos las constantes necesarias para localizar los elementos del DOM y creamos los listener para los elementos que son interactuables. (el botón)
 
 
 ## Funcionalidades introducidas
