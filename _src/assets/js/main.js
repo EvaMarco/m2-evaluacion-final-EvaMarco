@@ -13,6 +13,21 @@ const ENDPOINT = `http://api.tvmaze.com/search/shows?q=${inputShow}`;
 
 function search(){
   console.log('busco');
+  fetch(ENDPOINT)
+    .then(response => response.json())
+    .then(data => {console.log(data);
+      for(const item of data){
+        console.log(item.show);
+        console.log(item.show.id);
+        console.log(item.show.name);
+        if(item.show.image !== null){
+          console.log(item.show.image.medium);
+        }
+        else{
+          console.log('no tengo imagen');
+        }
+      }
+    });
 }
 
 btn.addEventListener('click', search);
