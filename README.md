@@ -32,8 +32,9 @@ Comprobamos con una búsqueda aleatoria que todo funciona.
 Si funciona ya tenemos medio ejercicio hecho.
 
 Ahora vamos con la sección de favoritos. Añadimos un listener a todos los divs creados, así cuando los pinchemos podemos ejecutar la función addFavoritos.
-Esta función coge el data-id que hemos añadido en la creación del elemento. Lo mete en el local Storage. Y si volvemos a pinchar se elimina de este registro.
+Esta función crea un objeto que contiene el data-id, el título y la imagen que hemos añadido en la creación del elemento. Lo mete en el local Storage. Y si volvemos a pinchar se elimina de este registro.
 
+Además vamos a hacer que cuando carguemos la página se carguen en la lista de favoritos que tenemos guardados en el local Storage.
 
 
 

@@ -34,14 +34,15 @@ function addFavs(event){
   const item = event.currentTarget;
   const showid = item.getAttribute('data-id');
   const img = item.querySelector('.img');
-  const title = item.querySelector('.showTitle');
-  console.log(item);
+  const imgSrc = img.src;
   console.log(img);
+  const title = item.querySelector('.showTitle');
+  const name = title.innerHTML;
   console.log(title);
   const id ={
     'id': showid,
-    'name': title,
-    'img': img
+    'name': name,
+    'img': imgSrc
   };
   item.classList.toggle('show__fav');
   if(item.classList.contains('show__fav')){
@@ -52,19 +53,23 @@ function addFavs(event){
   }
   else{
     for(const i of favs){
-      console.log(i);
       if(i.id === showid){
         favs.pop(i);
       }
     }
-    // Eliminarlo de la lista
-    // const index = favs.indexOf(showid);
-    // if(index > -1){
-    //   favs.splice(index, 1);
   }
   localStorage.setItem('arrayFav', JSON.stringify(favs));
 }
-
+function init (){
+  const guardado = JSON.parse(localStorage.getItem('arrayFav'));
+  console.log(guardado);
+  for(const item of guardado){
+    const favShow = createNewElement('div', 'favShow', item.id, item.name);
+    const favImage = createNewImage('img', 'favImg', item.img, item.name);
+    favShow.appendChild(favImage);
+    favContainer.appendChild(favShow);
+  }
+}
 
 function search(){
   const inputShow = inputText.value;
@@ -95,5 +100,5 @@ function search(){
       }
     });
 }
-
+init();
 btn.addEventListener('click', search);
