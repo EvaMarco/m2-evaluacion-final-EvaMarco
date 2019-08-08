@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Buscador de series Eva Marco</title>
-  <link rel="icon" href="favicon.png"/>
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body class="page">
-  <header class="page__header">
-    <h1 class="page__title">Buscador de series</h1>
-    <label for="text">Introduce el nombre de tu serie</label>
-    <input type="text" name="text" id="text" class="input__text js__inputText">
-    <button type = "button" class="btn search__btn js__searchBtn">🔍</button>
-  </header>
-  <main class="page__main">
-    <aside class="favContainer">
-      <h2 class="aside__title">Favoritos</h2>
-      <div class="fav js__fav">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscador de series Eva Marco</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="page">
+    <header class="page__header">
+      <h1 class="page__title">Buscador de series</h1>
+      <div class="input__container">
+        <label for="text">Introduce el nombre de tu serie</label>
+        <input
+          type="text"
+          name="text"
+          id="text"
+          class="input__text js__inputText"
+        />
+        <button type="button" class="btn search__btn js__searchBtn">🔍</button>
       </div>
-    </aside>
-    <section class="search__container">
-      <h2 class="result__title">
-        Resultados de la búsqueda.
-      </h2>
-      <div class="search__results js__results">
-
-      </div>
-    </section>
-  </main>
-  <script src="assets/js/main.js"></script>
-</body>
+    </header>
+    <main class="page__main">
+      <aside class="favContainer">
+        <h2 class="aside__title">Favoritos</h2>
+        <div class="fav js__fav"></div>
+      </aside>
+      <section class="search__container">
+        <h2 class="result__title">
+          Resultados de la búsqueda.
+        </h2>
+        <div class="search__results js__results"></div>
+      </section>
+    </main>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

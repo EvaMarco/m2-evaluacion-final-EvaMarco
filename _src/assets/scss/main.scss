@@ -1,13 +1,13 @@
 @import 'core/settings';
 @import 'core/links';
 
-body {
+* {
   margin:0;
   box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
 }
+.page__header{
 
-.show__fav{
-  background-color: pink;
 }
 .page__main{
   display:grid;
@@ -18,7 +18,7 @@ body {
 }
 .search__container{
   grid-column:1fr;
-
+  text-align: center;
 }
 .search__results{
   display:flex;
@@ -27,6 +27,22 @@ body {
 .show{
   margin:10px;
   width: 250px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding:15px;
+  background-color: lightblue;
+  border-radius:5px;
+  color: rgb(108, 138, 202);
+}
+
+.show__fav{
+  background-color: pink;
+  color: rgb(206, 90, 186);
+}
+.showTitle{
+  margin:5px;
 }
 .favShow{
   margin:10px;
