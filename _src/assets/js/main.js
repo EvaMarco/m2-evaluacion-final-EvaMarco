@@ -24,15 +24,19 @@ function init() {
 
 /* Funciones para crear elementos nuevos */
 
-function createNewElement(tag, myClass, id, name) {
+function createNewElement(tag, myClass, id, name, url) {
+  const showWrapper = createNewDiv('div', 'show__wrapper', id);
+  const showTitle = document.createElement('h3');
+  const titleText = document.createTextNode(name);
+  showTitle.appendChild(titleText);
+  showTitle.classList.add('showTitle');
+  showWrapper.appendChild(showTitle);
+  const newUrl = createNewLink('a', 'urlLink', url);
+  showWrapper.appendChild(newUrl);
   const newShow = document.createElement(tag);
   newShow.classList.add(myClass);
   newShow.setAttribute('data-id', id);
-  const showTitle = document.createElement('h3');
-  showTitle.classList.add('showTitle');
-  const titleText = document.createTextNode(name);
-  showTitle.appendChild(titleText);
-  newShow.appendChild(showTitle);
+  newShow.appendChild(showWrapper);
   return newShow;
 }
 function createNewDiv(tag, myClass, id) {
@@ -52,10 +56,21 @@ function createNewImage(tag, myClass, src, alt) {
   const showImage = document.createElement(tag);
   showImage.src = src;
   showImage.alt = alt;
+
   showImage.classList.add(myClass);
   return showImage;
 }
-
+function createNewLink(tag, myClass, url ){
+  const newLink = document.createElement(tag);
+  newLink.setAttribute('target', '__blank');
+  const innerText = document.createTextNode(`?`);
+  newLink.appendChild(innerText);
+  newLink.classList.add(myClass);
+  newLink.href = url;
+  console.log(newLink.href);
+  console.log(newLink);
+  return newLink;
+}
 function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
@@ -159,7 +174,7 @@ function search() {
       resultsContainer.innerHTML = '';
       resultList = [];
       for (const item of data) {
-        const newShow = createNewElement('div', 'show', `${item.show.id}`, item.show.name);
+        const newShow = createNewElement('div', 'show', `${item.show.id}`, item.show.name,  `${item.show.url}`);
 
         if (item.show.image !== null) {
           const showImage = createNewImage('img', 'img', item.show.image.medium, item.show.title);
