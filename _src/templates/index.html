@@ -7,8 +7,23 @@
   <link rel="icon" href="favicon.png"/>
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
-
+<body class="page">
+  <header class="page__header">
+    <h1 class="page__title">Buscador de series</h1>
+    <label for="text">Introduce el nombre de tu serie</label>
+    <input type="text" name="text" id="text" class="input__text js__inputText">
+    <button type = "button" class="btn search__btn js__searchBtn"></button>
+  </header>
+  <main class="page__main">
+    <aside class="fav">
+      <h2 class="aside__title">Favoritos</h2>
+    </aside>
+    <section class="search__results js__results">
+      <h2 class="result__title">
+        Resultados de la búsqueda.
+      </h2>
+    </section>
+  </main>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

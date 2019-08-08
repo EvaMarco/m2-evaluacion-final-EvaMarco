@@ -1,5 +1,29 @@
+# Evaluación Final Módulo 2 Eva Marco
+
+## Introducción
+
+En esta evaluación nos han pedido que creemos un buscador de series. Este buscador debe constar de una barra de búsqueda con su botón, y un espacio para los resultados.
+Además debemos crear una funcionalidad para guardar nuestra lista de series favoritas.
+
+## Pasos iniciales
+
+Lo primero es crear nuestro repositorio, crear los documentos que vamos a necesitar el HTML con sus etiquetas Meta enlazamos el JavaScript y comprobamos que tenemos linkeado el CSS.
+
+Para estructurar este proyecto tenemos que tener en cuenta que con cada búsqueda que hagamos tenemos que hacer una petición a una api que nos han proporcionado. Para ello seguiremos estos pasos.
+1. Ver como se estructura el JSON que recibimos de la api.
+2. Mirar que información necesitamos sacar del objeto recibido.
+3. Comprobar que obtenemos resultados iguales en las búsquedas.
+
+Una vez ya tenemos acceso a la info que necesitamos podemos empezar a escribir nuestro código.
+
+
+## Funcionalidades introducidas
+
+Para este proyecto hemos usado las funcionalidades proporcionadas por el Adalab Started Kit que nos proporciona un compilador de SASS un linter de JS y alguna autoamtización de tareas con gulp.
+
+
 ![Adalab](_src/assets/images/logo-adalab-80px.png)
-# Adalab web starter kit
+## Adalab web starter kit
 Ahoy! Esta es nuestro Starter Kit en node/gulp para este primer contacto con el desarrollo web
 Incluye SCSS, un sistema de plantillas HTMl y un web server.
 
