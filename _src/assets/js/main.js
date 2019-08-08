@@ -15,6 +15,7 @@ function createNewElement(tag, myClass, id, name){
   newShow.classList.add(myClass);
   newShow.setAttribute('data-id', id);
   const showTitle = document.createElement('h3');
+  showTitle.classList.add('showTitle');
   const titleText = document.createTextNode(name);
   showTitle.appendChild(titleText);
   newShow.appendChild(showTitle);
@@ -31,23 +32,39 @@ function createNewImage(tag, myClass, src, alt){
 
 function addFavs(event){
   const item = event.currentTarget;
-  const name = item.getAttribute('data-id');
+  const showid = item.getAttribute('data-id');
+  const img = item.querySelector('.img');
+  const title = item.querySelector('.showTitle');
+  console.log(item);
+  console.log(img);
+  console.log(title);
+  const id ={
+    'id': showid,
+    'name': title,
+    'img': img
+  };
   item.classList.toggle('show__fav');
   if(item.classList.contains('show__fav')){
-    if(favs.includes(name) === false){
+    if(favs.id !== showid){
       // Añadirlo a la lista
-      favs.push(name);
+      favs.push(id);
     }
   }
   else{
-    // Eliminarlo de la lista
-    const index = favs.indexOf(name);
-    if(index > -1){
-      favs.splice(index, 1);
+    for(const i of favs){
+      console.log(i);
+      if(i.id === showid){
+        favs.pop(i);
+      }
     }
+    // Eliminarlo de la lista
+    // const index = favs.indexOf(showid);
+    // if(index > -1){
+    //   favs.splice(index, 1);
   }
   localStorage.setItem('arrayFav', JSON.stringify(favs));
 }
+
 
 function search(){
   const inputShow = inputText.value;

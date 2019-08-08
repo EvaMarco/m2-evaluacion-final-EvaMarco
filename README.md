@@ -19,7 +19,22 @@ Lo siguiente que tenemos que tener en cuenta es que con cada búsqueda que hagam
 
 Una vez ya tenemos acceso a la info que necesitamos podemos empezar a escribir nuestro código.
 
-Creamos las constantes necesarias para localizar los elementos del DOM y creamos los listener para los elementos que son interactuables. (el botón)
+## Comenzamos con el código
+
+Creamos las constantes necesarias para localizar los elementos del DOM y creamos los listener para los elementos que son interactuables. (el botón).
+
+Creamos la función que realiza la búsqueda (fetch url, con sus then) e imprimimos los resultados por consola, para comprobar que todo funciona.
+
+Cuando ya tenemos claro que necesitamos y como lo obtenemos creamos los elementos que se van a introducir en el DOM. Lo podemos hacer con innerHTML o con createElement.
+
+Comprobamos con una búsqueda aleatoria que todo funciona.
+
+Si funciona ya tenemos medio ejercicio hecho.
+
+Ahora vamos con la sección de favoritos. Añadimos un listener a todos los divs creados, así cuando los pinchemos podemos ejecutar la función addFavoritos.
+Esta función coge el data-id que hemos añadido en la creación del elemento. Lo mete en el local Storage. Y si volvemos a pinchar se elimina de este registro.
+
+
 
 
 ## Funcionalidades introducidas
