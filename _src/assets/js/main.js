@@ -109,6 +109,13 @@ function search() {
         resultList.push(newShow);
       }
       for (const item of resultList) {
+        const newid = item.getAttribute('data-id');
+        if (favs !== null && favs.length !== 0) {
+          let favorite = favs.find(favItem => favItem['id'] === newid);
+          if (favorite !== undefined) {
+            item.classList.add('show__fav');
+          }
+        }
         resultsContainer.appendChild(item);
       }
       const shows = document.querySelectorAll('.show');
