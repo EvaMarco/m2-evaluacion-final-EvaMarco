@@ -36,9 +36,18 @@ Esta función crea un objeto que contiene el data-id, el título y la imagen que
 
 Además vamos a hacer que cuando carguemos la página se carguen en la lista de favoritos que tenemos guardados en el local Storage.
 
+## Extas
+
 Vamos a darle un poco de estilos a nuestra aplicación.
 
-Ahora tenemos que añadir la funcionalidad de que se puedan eliminar de favoritos con un click.
+Ahora tenemos que añadir la funcionalidad de que se puedan eliminar de favoritos con un click, además nos interesa que al eliminarlo se quite la clase que le dimos que resalta los elementos en favoritos.
+
+También añadimos un botón de reset para vaciar todo el localStorage.
+
+Añadí un diseño responsive que va variando según el dispositivo que tengamos.
+
+Por último vamos a realizar una limpieza a las funciones y ver si podemos reaprovechar o simplificar las funciones.
+
 
 ## Funcionalidades introducidas
 
@@ -46,6 +55,7 @@ Para este proyecto hemos usado las funcionalidades proporcionadas por el Adalab 
 
 
 ![Adalab](_src/assets/images/logo-adalab-80px.png)
+
 ## Adalab web starter kit
 Ahoy! Esta es nuestro Starter Kit en node/gulp para este primer contacto con el desarrollo web
 Incluye SCSS, un sistema de plantillas HTMl y un web server.

@@ -1,0 +1,15 @@
+/* MAIN */
+
+.page__main {
+  grid: 1fr;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  @media all and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
+  padding-top: 20px;
+  background-color: #000;
+}

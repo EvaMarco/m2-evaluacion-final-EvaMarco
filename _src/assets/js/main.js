@@ -8,12 +8,21 @@ const btn = document.querySelector('.js__searchBtn');
 const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
 const resetBtn = document.querySelector('.reset__btn');
+
 let resultList = [];
 let favs = [];
 let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
 if(favsarray !== null){
   favs = favsarray;
 }
+
+/* Función inicial */
+
+function init() {
+  writeFav();
+}
+
+/* Funciones para crear elementos nuevos */
 
 function createNewElement(tag, myClass, id, name) {
   const newShow = document.createElement(tag);
@@ -39,7 +48,6 @@ function createNewTitle(tag, myClass, name) {
   newTitle.appendChild(titleText);
   return newTitle;
 }
-
 function createNewImage(tag, myClass, src, alt) {
   const showImage = document.createElement(tag);
   showImage.src = src;
@@ -47,56 +55,7 @@ function createNewImage(tag, myClass, src, alt) {
   showImage.classList.add(myClass);
   return showImage;
 }
-function addFavs(event) {
-  const item = event.currentTarget;
-  const showid = item.getAttribute('data-id');
-  const img = item.querySelector('.img');
-  const imgSrc = img.src;
-  const title = item.querySelector('.showTitle');
-  const name = title.innerHTML;
-  const favItem = {
-    'id': showid,
-    'name': name,
-    'img': imgSrc
-  };
-  item.classList.toggle('show__fav');
 
-  if (favs !== null && favs.length !== 0) {
-    let favorite = favs.find(favItem => favItem['id'] === showid);
-    if (favorite === undefined) {
-      favs.push(favItem);
-    }
-    else {
-      const index = favs.indexOf(favorite);
-      if (index > -1) {
-        favs.splice(index, 1);
-      }
-    }
-  }
-  else {
-    favs = [];
-    favs.push(favItem);
-  }
-  saveToLocalStorage();
-  writeFav();
-}
-
-function saveToLocalStorage() {
-  localStorage.setItem('favoriteShowsArray', JSON.stringify(favs));
-}
-function remove(event){
-  const guilty = event.currentTarget;
-  const parentG = guilty.parentElement;
-  const granPG = parentG.parentElement;
-  const granPgId =granPG.getAttribute('data-id');
-  let favorite = favs.find(favItem => favItem['id'] === granPgId);
-  const index = favs.indexOf(favorite);
-  if (index > -1) {
-    favs.splice(index, 1);
-  }
-  saveToLocalStorage();
-  writeFav();
-}
 function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
@@ -118,9 +77,78 @@ function writeFav() {
   }
 }
 
-function init() {
+/* Añadir a favoritos */
+
+function addFavs(event) {
+
+  const item = event.currentTarget;
+  const showid = item.getAttribute('data-id');
+  const img = item.querySelector('.img');
+  const imgSrc = img.src;
+  const title = item.querySelector('.showTitle');
+  const name = title.innerHTML;
+  const favItem = {
+    'id': showid,
+    'name': name,
+    'img': imgSrc
+  };
+
+  item.classList.toggle('show__fav');
+
+  if (favs !== null && favs.length !== 0) {
+    let favorite = favs.find(favItem => favItem['id'] === showid);
+    if (favorite === undefined) {
+      favs.push(favItem);
+    }
+    else {
+      const index = favs.indexOf(favorite);
+      if (index > -1) {
+        favs.splice(index, 1);
+      }
+    }
+  }
+  else {
+    favs = [];
+    favs.push(favItem);
+  }
+
+  saveToLocalStorage();
   writeFav();
 }
+
+/* Añadir al Local Storage */
+
+function saveToLocalStorage() {
+  localStorage.setItem('favoriteShowsArray', JSON.stringify(favs));
+}
+
+/* Eliminar favoritos */
+
+function remove(event){
+  const guilty = event.currentTarget;
+  const parentG = guilty.parentElement;
+  const granPG = parentG.parentElement;
+  const granPgId =granPG.getAttribute('data-id');
+  let favorite = favs.find(favItem => favItem['id'] === granPgId);
+  const index = favs.indexOf(favorite);
+  if (index > -1) {
+    favs.splice(index, 1);
+  }
+  saveToLocalStorage();
+  writeFav();
+}
+
+function cleanAll(){
+  favs=[];
+  localStorage.clear();
+  writeFav();
+  const cleanArray = document.querySelectorAll('.show__fav');
+  for(const i of cleanArray){
+    i.classList.toggle('show__fav');
+  }
+}
+
+/* Función principal de búsqueda */
 
 function search() {
   const inputShow = inputText.value;
@@ -160,18 +188,10 @@ function search() {
       }
     });
 }
+
 function fakeClick(event) {
   if (event.keyCode === 13) {
     search();
-  }
-}
-function cleanAll(){
-  favs=[];
-  localStorage.clear();
-  writeFav();
-  const cleanArray = document.querySelectorAll('.show__fav');
-  for(const i of cleanArray){
-    i.classList.toggle('show__fav');
   }
 }
 
