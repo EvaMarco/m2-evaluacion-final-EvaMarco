@@ -9,3 +9,29 @@ body {
 .show__fav{
   background-color: pink;
 }
+.page__main{
+  display:grid;
+  grid-template-columns: auto 1fr;
+}
+.fav{
+  grid-column: auto;
+}
+.search__container{
+  grid-column:1fr;
+
+}
+.search__results{
+  display:flex;
+  flex-wrap: wrap;
+}
+.show{
+  margin:10px;
+  width: 250px;
+}
+.favShow{
+  margin:10px;
+  width: 150px;
+  .favImg{
+    width:125px;
+  }
+}

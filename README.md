@@ -36,7 +36,9 @@ Esta función crea un objeto que contiene el data-id, el título y la imagen que
 
 Además vamos a hacer que cuando carguemos la página se carguen en la lista de favoritos que tenemos guardados en el local Storage.
 
+Vamos a darle un poco de estilos a nuestra aplicación.
 
+Ahora tenemos que añadir la funcionalidad de que se puedan eliminar de favoritos con un click.
 
 ## Funcionalidades introducidas
 

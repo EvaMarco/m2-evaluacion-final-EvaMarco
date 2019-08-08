@@ -8,7 +8,7 @@ const btn = document.querySelector('.js__searchBtn');
 const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
 const resultList = [];
-const favs = [];
+let favs = JSON.parse(localStorage.getItem('arrayFav'));
 
 function createNewElement(tag, myClass, id, name){
   const newShow = document.createElement(tag);
@@ -35,40 +35,51 @@ function addFavs(event){
   const showid = item.getAttribute('data-id');
   const img = item.querySelector('.img');
   const imgSrc = img.src;
-  console.log(img);
   const title = item.querySelector('.showTitle');
   const name = title.innerHTML;
-  console.log(title);
   const id ={
     'id': showid,
     'name': name,
     'img': imgSrc
   };
   item.classList.toggle('show__fav');
-  if(item.classList.contains('show__fav')){
-    if(favs.id !== showid){
-      // Añadirlo a la lista
-      favs.push(id);
-    }
-  }
-  else{
-    for(const i of favs){
-      if(i.id === showid){
-        favs.pop(i);
+  if(favs!== null){
+    if(item.classList.contains('show__fav')){
+      if(favs.id !== showid){
+        // Añadirlo a la lista
+        favs.push(id);
       }
     }
+    else{
+      for(const i of favs){
+        if(i.id === showid){
+          favs.pop(i);
+        }
+      }
+    }
+  }else{
+    favs=[];
+    favs.push(id);
   }
   localStorage.setItem('arrayFav', JSON.stringify(favs));
+  writeFav(favs);
 }
-function init (){
-  const guardado = JSON.parse(localStorage.getItem('arrayFav'));
-  console.log(guardado);
-  for(const item of guardado){
-    const favShow = createNewElement('div', 'favShow', item.id, item.name);
-    const favImage = createNewImage('img', 'favImg', item.img, item.name);
-    favShow.appendChild(favImage);
-    favContainer.appendChild(favShow);
+function writeFav(array){
+  while (favContainer.firstChild) {
+    favContainer.removeChild(favContainer.firstChild);
   }
+  if(array !== null){
+    for(const item of array){
+      const favShow = createNewElement('div', 'favShow', item.id, item.name);
+      const favImage = createNewImage('img', 'favImg', item.img, item.name);
+      favShow.appendChild(favImage);
+      favContainer.appendChild(favShow);
+    }
+  }
+}
+
+function init (){
+  writeFav(favs);
 }
 
 function search(){
@@ -93,12 +104,13 @@ function search(){
       for(const item of resultList){
         resultsContainer.appendChild(item);
       }
-      console.log(resultList);
       const shows = document.querySelectorAll('.show');
       for(const item of shows){
         item.addEventListener('click', addFavs);
       }
     });
 }
-init();
+
 btn.addEventListener('click', search);
+
+init();
