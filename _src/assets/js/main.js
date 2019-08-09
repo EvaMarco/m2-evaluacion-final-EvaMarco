@@ -8,6 +8,7 @@ const btn = document.querySelector('.js__searchBtn');
 const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
 const resetBtn = document.querySelector('.reset__btn');
+const allFavs = document.querySelector('.favContainer');
 
 
 let resultList = [];
@@ -87,21 +88,30 @@ function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
   if (favsarray !== null) {
-    favsarray.sort(compare);
-    for (const item of favsarray) {
-      const favTitleDiv = createNewDiv('div', 'fav_TitleWrapper', item.id);
-      const favTitle = createNewTitle('h3', 'fav__ShowTitle', item.name);
-      const closeBtn = document.createElement('button');
-      closeBtn.classList.add('closeBtn');
-      closeBtn.addEventListener('click', remove);
-      favTitleDiv.appendChild(favTitle);
-      favTitleDiv.appendChild(closeBtn);
-      const favImage = createNewImage('img', 'favImg', item.img, item.name);
-      const favShow = createNewDiv('div', 'favShow', item.id);
-      favShow.appendChild(favTitleDiv);
-      favShow.appendChild(favImage);
-      favContainer.appendChild(favShow);
+    if(favsarray.length == 0){
+      allFavs.classList.add('hidden');
     }
+    else{
+      allFavs.classList.remove('hidden');
+      favsarray.sort(compare);
+      for (const item of favsarray) {
+        const favTitleDiv = createNewDiv('div', 'fav_TitleWrapper', item.id);
+        const favTitle = createNewTitle('h3', 'fav__ShowTitle', item.name);
+        const closeBtn = document.createElement('button');
+        closeBtn.classList.add('closeBtn');
+        closeBtn.addEventListener('click', remove);
+        favTitleDiv.appendChild(favTitle);
+        favTitleDiv.appendChild(closeBtn);
+        const favImage = createNewImage('img', 'favImg', item.img, item.name);
+        const favShow = createNewDiv('div', 'favShow', item.id);
+        favShow.appendChild(favTitleDiv);
+        favShow.appendChild(favImage);
+        favContainer.appendChild(favShow);
+      }
+    }
+  }
+  else{
+    allFavs.classList.add('hidden');
   }
 }
 
