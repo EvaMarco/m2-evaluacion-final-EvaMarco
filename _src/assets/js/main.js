@@ -71,10 +71,24 @@ function createNewLink(tag, myClass, url ){
   console.log(newLink);
   return newLink;
 }
+function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const genreA = a.name.toUpperCase();
+  const genreB = b.name.toUpperCase();
+
+  let comparison = 0;
+  if (genreA > genreB) {
+    comparison = 1;
+  } else if (genreA < genreB) {
+    comparison = -1;
+  }
+  return comparison;
+}
 function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
   if (favsarray !== null) {
+    favsarray.sort(compare);
     for (const item of favsarray) {
       const favTitleDiv = createNewDiv('div', 'fav_TitleWrapper', item.id);
       const favTitle = createNewTitle('h3', 'fav__ShowTitle', item.name);
