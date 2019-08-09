@@ -17,7 +17,8 @@
 	},
 	"js": {
 		"src": [
-			"_src/assets/js/main.js"
+      "_src/assets/js/filters.js",
+      "_src/assets/js/main.js"
 		],
 		"dest": "public/assets/js/",
     "dist": "docs/assets/js/"

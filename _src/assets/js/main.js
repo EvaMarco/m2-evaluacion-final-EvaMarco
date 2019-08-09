@@ -9,6 +9,7 @@ const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
 const resetBtn = document.querySelector('.reset__btn');
 
+
 let resultList = [];
 let favs = [];
 let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
@@ -67,8 +68,6 @@ function createNewLink(tag, myClass, url ){
   newLink.appendChild(innerText);
   newLink.classList.add(myClass);
   newLink.href = url;
-  console.log(newLink.href);
-  console.log(newLink);
   return newLink;
 }
 function compare(a, b) {
@@ -109,41 +108,54 @@ function writeFav() {
 /* Añadir a favoritos */
 
 function addFavs(event) {
+  let guilty = event.target;
+  let item = event.currentTarget;
+  if(guilty.classList.contains('urlLink')){
+    // eslint-disable-next-line no-console
+    console.log('soy en enlace', item);
+  }else{
+    const showid = item.getAttribute('data-id');
+    const img = item.querySelector('.img');
+    const imgSrc = img.src;
+    const title = item.querySelector('.showTitle');
+    const name = title.innerHTML;
+    const showLang = item.getAttribute('data-lang');
+    const showStatus = item.getAttribute('data-status');
+    const showGenres = item.getAttribute('data-genres');
+    const showScore = item.getAttribute('data-score');
+    const favItem = {
+      'id': showid,
+      'name': name,
+      'img': imgSrc,
+      'lang':showLang,
+      'status': showStatus,
+      'genere': showGenres,
+      'score': showScore
+    };
 
-  const item = event.currentTarget;
-  const showid = item.getAttribute('data-id');
-  const img = item.querySelector('.img');
-  const imgSrc = img.src;
-  const title = item.querySelector('.showTitle');
-  const name = title.innerHTML;
-  const favItem = {
-    'id': showid,
-    'name': name,
-    'img': imgSrc
-  };
+    item.classList.toggle('show__fav');
 
-  item.classList.toggle('show__fav');
-
-  if (favs !== null && favs.length !== 0) {
-    let favorite = favs.find(favItem => favItem['id'] === showid);
-    if (favorite === undefined) {
-      favs.push(favItem);
-    }
-    else {
-      const index = favs.indexOf(favorite);
-      if (index > -1) {
-        favs.splice(index, 1);
+    if (favs !== null && favs.length !== 0) {
+      let favorite = favs.find(favItem => favItem['id'] === showid);
+      if (favorite === undefined) {
+        favs.push(favItem);
+      }
+      else {
+        const index = favs.indexOf(favorite);
+        if (index > -1) {
+          favs.splice(index, 1);
+        }
       }
     }
+    else {
+      favs = [];
+      favs.push(favItem);
+    }
+    saveToLocalStorage();
+    writeFav();
   }
-  else {
-    favs = [];
-    favs.push(favItem);
-  }
-
-  saveToLocalStorage();
-  writeFav();
 }
+
 
 /* Añadir al Local Storage */
 
@@ -188,7 +200,15 @@ function search() {
       resultsContainer.innerHTML = '';
       resultList = [];
       for (const item of data) {
-        const newShow = createNewElement('div', 'show', `${item.show.id}`, item.show.name,  `${item.show.url}`);
+        const newShow = createNewElement('li', 'show', `${item.show.id}`, item.show.name,  `${item.show.url}`);
+        const score = item.score;
+        const lang = item.show.language;
+        const status = item.show.status;
+        const genres = item.show.genres;
+        newShow.setAttribute('data-lang', lang);
+        newShow.setAttribute('data-status', status);
+        newShow.setAttribute('data-genere', genres);
+        newShow.setAttribute('data-score', score);
 
         if (item.show.image !== null) {
           const showImage = createNewImage('img', 'img', item.show.image.medium, item.show.title);
@@ -227,5 +247,6 @@ function fakeClick(event) {
 inputText.addEventListener('keyup', fakeClick);
 resetBtn.addEventListener('click', cleanAll);
 btn.addEventListener('click', search);
+
 
 init();
