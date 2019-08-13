@@ -9,6 +9,7 @@ const favContainer = document.querySelector('.js__fav');
 const resultsContainer = document.querySelector('.js__results');
 const resetBtn = document.querySelector('.reset__btn');
 const allFavs = document.querySelector('.favContainer');
+const resultNumber = document.querySelector('.resultnumber__text');
 
 
 let resultList = [];
@@ -17,6 +18,7 @@ let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
 if(favsarray !== null){
   favs = favsarray;
 }
+const numArray = [5, 8, 10];
 
 /* Función inicial */
 
@@ -71,11 +73,11 @@ function createNewLink(tag, myClass, url ){
   newLink.href = url;
   return newLink;
 }
+/* Dibujar favoritos por orden alfabético*/
+
 function compare(a, b) {
-  // Use toUpperCase() to ignore character casing
   const genreA = a.name.toUpperCase();
   const genreB = b.name.toUpperCase();
-
   let comparison = 0;
   if (genreA > genreB) {
     comparison = 1;
@@ -84,6 +86,7 @@ function compare(a, b) {
   }
   return comparison;
 }
+
 function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
@@ -175,6 +178,8 @@ function saveToLocalStorage() {
 
 /* Eliminar favoritos */
 
+/* Con el boton de cerrar*/
+
 function remove(event){
   const guilty = event.currentTarget;
   const parentG = guilty.parentElement;
@@ -188,6 +193,7 @@ function remove(event){
   saveToLocalStorage();
   writeFav();
 }
+/* Con el boton de reset */
 
 function cleanAll(){
   favs=[];
@@ -209,6 +215,7 @@ function search() {
     .then(data => {
       resultsContainer.innerHTML = '';
       resultList = [];
+      resultNumber.innerHTML = data.length;
       for (const item of data) {
         const newShow = createNewElement('li', 'show', `${item.show.id}`, item.show.name,  `${item.show.url}`);
         const score = item.score;
@@ -219,6 +226,8 @@ function search() {
         newShow.setAttribute('data-status', status);
         newShow.setAttribute('data-genere', genres);
         newShow.setAttribute('data-score', score);
+        const premiere = item.show.premiered;
+        const premiereshow = createNewTitle('time', 'time', premiere);
 
         if (item.show.image !== null) {
           const showImage = createNewImage('img', 'img', item.show.image.medium, item.show.title);
@@ -229,6 +238,7 @@ function search() {
           const showImage = createNewImage('img', 'img', imgDefualt, item.show.title);
           newShow.appendChild(showImage);
         }
+        newShow.appendChild(premiereshow);
         resultList.push(newShow);
       }
       for (const item of resultList) {
@@ -240,12 +250,14 @@ function search() {
           }
         }
         resultsContainer.appendChild(item);
+
       }
       const shows = document.querySelectorAll('.show');
       for (const item of shows) {
         item.addEventListener('click', addFavs);
       }
     });
+
 }
 
 function fakeClick(event) {
@@ -254,9 +266,22 @@ function fakeClick(event) {
   }
 }
 
+function showResults(event){
+  const num = resultNumber.innerHTML;
+  for( const item of numArray){
+    if(item<= num){
+      console.log(`El numero de resultados es ${num} y es mayor o igual a ${item}`);
+    }
+    else{
+      console.log(`El numero de resultados es ${num} y es menor a ${item}`);
+    }
+  }
+}
+
 inputText.addEventListener('keyup', fakeClick);
 resetBtn.addEventListener('click', cleanAll);
 btn.addEventListener('click', search);
+resultNumber.addEventListener('click', showResults);
 
 
 init();

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line strict
 console.log('filters ready');
 const statusSelect = document.querySelector('.status__select');
@@ -131,12 +132,15 @@ function genreFilter(){
           return word.dataset.genere;
         }
       });
+      // eslint-disable-next-line no-undef
       resultsContainer.innerHTML = '';
       for (const item of result) {
+        // eslint-disable-next-line no-undef
         resultsContainer.appendChild(item);
       }
     }
     else if(selectedStatus === '2'){
+      // eslint-disable-next-line no-undef
       const result = resultList.filter(word => {
         if (word.dataset.genere.indexOf(genreValue2) > -1) {
           return word.dataset.genere;
