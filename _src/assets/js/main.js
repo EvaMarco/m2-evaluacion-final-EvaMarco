@@ -1,8 +1,5 @@
 'use strict';
 
-// eslint-disable-next-line no-console
-console.log('>> Ready :)');
-
 const inputText = document.querySelector('.js__inputText');
 const btn = document.querySelector('.js__searchBtn');
 const favContainer = document.querySelector('.js__fav');
@@ -10,7 +7,7 @@ const resultsContainer = document.querySelector('.js__results');
 const resetBtn = document.querySelector('.reset__btn');
 const allFavs = document.querySelector('.favContainer');
 const resultNumber = document.querySelector('.resultnumber__text');
-
+const numArray = [5, 8, 10];
 
 let resultList = [];
 let favs = [];
@@ -18,16 +15,10 @@ let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
 if(favsarray !== null){
   favs = favsarray;
 }
-const numArray = [5, 8, 10];
-
-/* Función inicial */
 
 function init() {
   writeFav();
 }
-
-/* Funciones para crear elementos nuevos */
-
 function createNewElement(tag, myClass, id, name, url) {
   const showWrapper = createNewDiv('div', 'show__wrapper', id);
   const showTitle = document.createElement('h3');
@@ -60,7 +51,6 @@ function createNewImage(tag, myClass, src, alt) {
   const showImage = document.createElement(tag);
   showImage.src = src;
   showImage.alt = alt;
-
   showImage.classList.add(myClass);
   return showImage;
 }
@@ -73,8 +63,6 @@ function createNewLink(tag, myClass, url ){
   newLink.href = url;
   return newLink;
 }
-/* Dibujar favoritos por orden alfabético*/
-
 function compare(a, b) {
   const genreA = a.name.toUpperCase();
   const genreB = b.name.toUpperCase();
@@ -86,12 +74,11 @@ function compare(a, b) {
   }
   return comparison;
 }
-
 function writeFav() {
   favContainer.innerHTML = '';
   let favsarray = JSON.parse(localStorage.getItem('favoriteShowsArray'));
   if (favsarray !== null) {
-    if(favsarray.length == 0){
+    if(favsarray.length === 0){
       allFavs.classList.add('hidden');
     }
     else{
@@ -117,16 +104,10 @@ function writeFav() {
     allFavs.classList.add('hidden');
   }
 }
-
-/* Añadir a favoritos */
-
 function addFavs(event) {
   let guilty = event.target;
   let item = event.currentTarget;
-  if(guilty.classList.contains('urlLink')){
-    // eslint-disable-next-line no-console
-    console.log('soy en enlace', item);
-  }else{
+  if(!guilty.classList.contains('urlLink')){
     const showid = item.getAttribute('data-id');
     const img = item.querySelector('.img');
     const imgSrc = img.src;
@@ -145,9 +126,7 @@ function addFavs(event) {
       'genere': showGenres,
       'score': showScore
     };
-
     item.classList.toggle('show__fav');
-
     if (favs !== null && favs.length !== 0) {
       let favorite = favs.find(favItem => favItem['id'] === showid);
       if (favorite === undefined) {
@@ -168,18 +147,9 @@ function addFavs(event) {
     writeFav();
   }
 }
-
-
-/* Añadir al Local Storage */
-
 function saveToLocalStorage() {
   localStorage.setItem('favoriteShowsArray', JSON.stringify(favs));
 }
-
-/* Eliminar favoritos */
-
-/* Con el boton de cerrar*/
-
 function remove(event){
   const guilty = event.currentTarget;
   const parentG = guilty.parentElement;
@@ -190,11 +160,11 @@ function remove(event){
   if (index > -1) {
     favs.splice(index, 1);
   }
+  const notfav = resultsContainer.querySelector(`[data-id="${granPgId}"]`);
+  notfav.classList.toggle('show__fav');
   saveToLocalStorage();
   writeFav();
 }
-/* Con el boton de reset */
-
 function cleanAll(){
   favs=[];
   localStorage.clear();
@@ -204,9 +174,6 @@ function cleanAll(){
     i.classList.toggle('show__fav');
   }
 }
-
-/* Función principal de búsqueda */
-
 function search() {
   const inputShow = inputText.value;
   const ENDPOINT = `http://api.tvmaze.com/search/shows?q=${inputShow}`;
@@ -228,7 +195,6 @@ function search() {
         newShow.setAttribute('data-score', score);
         const premiere = item.show.premiered;
         const premiereshow = createNewTitle('time', 'time', premiere);
-
         if (item.show.image !== null) {
           const showImage = createNewImage('img', 'img', item.show.image.medium, item.show.title);
           newShow.appendChild(showImage);
@@ -250,24 +216,20 @@ function search() {
           }
         }
         resultsContainer.appendChild(item);
-
       }
       const shows = document.querySelectorAll('.show');
       for (const item of shows) {
         item.addEventListener('click', addFavs);
       }
     });
-
 }
-
 function fakeClick(event) {
   if (event.keyCode === 13) {
     search();
   }
 }
-
-function showResults(event){
-  const num = resultNumber.innerHTML;
+function showResults(){
+  const num = parseInt(resultNumber.innerHTML);
   for( const item of numArray){
     if(item<= num){
       console.log(`El numero de resultados es ${num} y es mayor o igual a ${item}`);
@@ -282,6 +244,5 @@ inputText.addEventListener('keyup', fakeClick);
 resetBtn.addEventListener('click', cleanAll);
 btn.addEventListener('click', search);
 resultNumber.addEventListener('click', showResults);
-
 
 init();
